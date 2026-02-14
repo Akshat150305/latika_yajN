@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Moments 💖</title>
+
+<style>
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  overflow-y:auto;   /* allows scrolling */
+  padding:20px 0;
+  background:#fad0c4;
+  font-family:Segoe UI;
+}
+
+/* main layout */
+.container{
+  display:flex;
+  gap:40px;
+  align-items:center;
+  z-index:2;
+  position:relative;
+  flex-wrap:wrap; 
+}
+
+/* ---------- SLIDER ---------- */
+.sliderWindow{
+  width:320px;
+  overflow:hidden;
+}
+
+.sliderTrack{
+  display:flex;
+  gap:20px;
+  transition:transform 0.8s ease;
+}
+
+.sliderTrack img{
+  width:300px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+/* ---------- LETTER ---------- */
+.letterPaper{
+  max-width:520px;
+  padding:40px;
+  background:#fdf6e3;
+  border-radius:8px;
+  box-shadow:
+      0 10px 25px rgba(0,0,0,.25),
+      inset 0 0 40px rgba(0,0,0,.08);
+  border:1px solid #e6d5a3;
+  position:relative;
+  animation:fadeIn 1.2s ease;
+}
+
+.letterPaper::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 28px,
+      rgba(0,0,0,0.03) 29px
+    );
+}
+
+.letterPaper p{
+  font-size:22px;
+  line-height:1.7;
+  color:#bd865b;
+}
+
+/* hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:22px;
+  animation:floatUp 6s linear infinite;
+  opacity:0.8;
+  z-index:0;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.container{
+  width:95%;
+  max-width:1000px;
+}
+
+/* make images responsive */
+.sliderTrack img{
+  width:100%;
+  max-width:300px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width:800px){
+
+  .container{
+    flex-direction:column;      /* stack vertically */
+    gap:25px;
+  }
+
+  .sliderWindow{
+    width:100%;
+    max-width:320px;
+  }
+
+  .letterPaper{
+    width:100%;
+    padding:25px;
+  }
+
+  .letterPaper p{
+    font-size:19px;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+<audio autoplay loop>
+  <source src="taylor_swift.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+  <!-- LEFT : SLIDESHOW -->
+  <div class="sliderWindow">
+    <div class="sliderTrack" id="track">
+      <img src="photo1.jpeg" alt="our moments">
+      <img src="photo2.jpeg" alt="our moments">
+      <img src="photo3.jpeg" alt="our moments">
+    </div>
+  </div>
+
+  <!-- RIGHT : LETTER -->
+  <div class="letterPaper">
+    <p>
+      My dearest Latika,<br><br>
+
+      Every moment with you feels magical.  
+      Tonight I just want to spend time with you,
+      laugh with you, and create memories that
+      we will smile about for years. <br><br>
+
+      Yours always,<br>
+      Yajan 💗
+    </p>
+  </div>
+
+</div>
+
+<script>
+/* slideshow sliding */
+const track = document.getElementById("track");
+const total = track.children.length;
+let index = 0;
+
+setInterval(()=>{
+  index++;
+  if(index >= total) index = 0;
+  track.style.transform = `translateX(${-(index*320)}px)`;
+},2500);
+
+/* floating hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*20+15)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},400);
+</script>
+
+</body>
+</html>
